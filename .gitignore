@@ -3,9 +3,9 @@ venv/
 .idea
 /__pycache__/
 
-/dist/
-/build/
+/Source/dist/
+/Source/build/
 *.spec
 
 
-/Created Gifs/
+/Source/Created Gifs/

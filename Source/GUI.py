@@ -1,6 +1,9 @@
+import os
+import sys
 from tkinter import *
 from tkinter import messagebox
 from MakeGif import MakeGif
+from PIL import ImageTk
 from tkinter.filedialog import askopenfilenames
 
 
@@ -89,7 +92,7 @@ class MakeGUI:
         if not self.nameStr.get().endswith(".gif"):
             self.nameStr.set(self.nameStr.get() + ".gif")
 
-        gif = MakeGif(self.nameStr.get(), '../Created Gifs')
+        gif = MakeGif(self.nameStr.get(), 'Created Gifs')
         gif.set_images(self.images)
 
         converted_duration = int(self.durationVar.get() * 1000)
@@ -106,10 +109,21 @@ class MakeGUI:
         messagebox.showinfo("Gif Created", f"Gif created at {created_gif}")
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, needed for pyinstaller to correctly add resource files to the executable """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 def main():
     root = Tk()
     root.title('GIF Maker v1.0')
     root.resizable(width=False, height=False)
+    root.iconphoto(True, ImageTk.PhotoImage(file=resource_path('gif-icon.jpg')))
 
     MakeGUI(root)
     root.mainloop()
